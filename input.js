@@ -4,9 +4,9 @@ var mouse = {
   y: 0,
   px: 0,
   py: 0,
-	old: 0,
-	moving: false,
-	direction: "",
+  old: 0,
+  moving: false,
+  direction: "",
   lastTile: {
     px: 0,
     py: 0,
@@ -39,31 +39,32 @@ $("#myCanvas").mouseup(function (event) {
 });
 
 $("#myCanvas").mousemove(function (event) {
-  mouse.moving = true
-	mouse.x = event.pageX;
+  mouse.moving = true;
+  mouse.x = event.pageX;
   mouse.y = event.pageY;
-	if (game.inGame) {
-		mousemovemethod(event)
-		}
+  if (game.inGame) {
+    mousemovemethod(event);
+  }
   mouse.px = Math.floor(mouse.x / game.blockSize);
   mouse.py = Math.floor(mouse.y / game.blockSize);
-	mouse.moving = false
+  mouse.moving = false;
 });
 
 $("#switchInGame").click(function (event) {
-  game.inGame = !game.inGame  
+  game.inGame = !game.inGame;
 });
 
-function mousemovemethod (e) {
-		if (mouse.moving) {
-        if (e.pageX < mouse.oldx) {
-            mouse.direction = 1
-        } else if (e.pageX > mouse.oldx) {
-            mouse.direction = -1
-        }	else {
-					mouse.direction = 0 
-				}
-
-        mouse.oldx = e.pageX;
-	}
+function mousemovemethod(e) {
+  if (mouse.moving) {
+    if (mouse.x < mouse.oldx) {
+      mouse.direction = 1;
+    }
+    if (mouse.x > mouse.oldx) {
+      mouse.direction = -1;
+    }
+    if (mouse.x == mouse.oldx) {
+      mouse.direction = 0;
+    }
+    mouse.oldx = mouse.x;
+  }
 }

@@ -2,7 +2,8 @@ var game = {
   width: 25,
   height: 25,
   blockSize: 500 / 25,
-	inGame: false,
+  inGame: false,
+  wallSize: 64,
 };
 
 $(document).ready(function () {
@@ -14,15 +15,14 @@ $(document).ready(function () {
 });
 
 function update() {
-	if (!game.inGame) {
-  	drawMap();
-  	inputMap();
-  	player.drawInMap();
-	}
+  if (!game.inGame) {
+    drawMap();
+    inputMap();
+    player.drawInMap();
+  }
 
-	if(game.inGame) {
-		player.update()
-		
-	}
+  if (game.inGame) {
+    player.update();
+  }
   requestAnimationFrame(update);
 }
