@@ -2,6 +2,7 @@ var game = {
   width: 25,
   height: 25,
   blockSize: 500 / 25,
+	inGame: false,
 };
 
 $(document).ready(function () {
@@ -13,8 +14,15 @@ $(document).ready(function () {
 });
 
 function update() {
-  drawMap();
-  inputMap();
-  player.draw();
+	if (!game.inGame) {
+  	drawMap();
+  	inputMap();
+  	player.drawInMap();
+	}
+
+	if(game.inGame) {
+		player.update()
+		
+	}
   requestAnimationFrame(update);
 }

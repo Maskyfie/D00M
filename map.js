@@ -32,7 +32,6 @@ function inputMap() {
         map[mouse.py][mouse.px].solid = true;
         break;
       default:
-      // code block
     }
   }
 }
