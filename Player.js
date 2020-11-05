@@ -1,12 +1,14 @@
 const pi = 3.141;
 
 class Player {
-  constructor(px, py) {
+  constructor(px, py, x, y) {
     this.px = px;
     this.py = py;
+    this.x = x;
+    this.y = y;
     this.size = 20;
     this.camSize = game.wallSize / 2;
-    this.direction = 0;
+    this.rotation = 0;
     this.fov = 60;
     this.camAngle = 20;
     this.viewMax = 10;
@@ -17,42 +19,43 @@ class Player {
 
   drawInMap() {
     game.ctx.fillStyle = "green";
-    game.ctx.fillRect(this.px * game.blockSize, this.py * game.blockSize, this.size, this.size);
+    game.ctx.fillRect(this.x, this.y, this.size, this.size);
   }
   detectWalls() {
     px = this.px;
     py = this.py;
   }
 
-  update() {
-    game.ctx.clearRect(0, 0, game.width, game.height);
-    for (let i = 0; i < this.rayon; i++) {
-      var pointYY = 0;
-      var pointYX = 0;
-      var pointXY = 0;
-      var pointXX = 0;
-      var yyDist = 0;
-      var yxDist = 0;
-      var xyDist = 0;
-      var xxDist = 0;
+  radar() {
+    for (let angle = this.rotation - this.fov / 2; angle < this.rotation + this.fov / 2; angle += 1) {
+      let found = false;
+      let dist = 1;
+      while (!found) {
+        let dx = this.x + Math.sin(toRad(angle)) * dist;
+        let dy = this.y + Math.cos(toRad(angle)) * dist;
+        if (dx > 0 && dx < game.canvasWidth && dy > 0 && dy < game.canvasWidth) {
+          if (!game.inGame) {
+            game.ctx.beginPath();
+            game.ctx.arc(dx, dy, 1, 0, 2 * Math.PI);
+            game.ctx.stroke();
+          }
 
-      var angRayon = this.camAngle + this.fov / 2 - (this.fov / game.width) * i;
-      if (angRayon < 0) angRayon = 360;
-      if (angRayon > 360) angRayon = 0;
+          if (map[Math.floor(dy / game.blockSize)][Math.floor(dx / game.blockSize)].solid) {
+            found = true;
+            if (game.inGame) {
+              update(dx, dy, dist);
+            }
+          }
+        }
 
-      angRayon = angRayon.toFixed(2);
-
-      if (angRayon > 0 && angRayon < 180) {
-        pointXX = this.px + 1;
-        yyDist = 1;
-      } else {
-      }
-
-      if (angRayon < 90 || angRayon > 270) {
-        pointYa = 1;
-      } else {
-        pointYa = -1;
+        dist = dist + 10;
+        if (dist > 500) found = true;
       }
     }
+  }
+  update(dx, dy, dist) {
+    taille = dist;
+
+    print(distanceX);
   }
 }

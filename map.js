@@ -26,6 +26,8 @@ function inputMap() {
       case 2:
         player.px = mouse.px;
         player.py = mouse.py;
+        player.x = mouse.x;
+        player.y = mouse.y;
 
         break;
       case 3:
