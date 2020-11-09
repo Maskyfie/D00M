@@ -4,7 +4,11 @@ function initMap() {
   for (let py = 0; py < game.height; py++) {
     map[py] = [];
     for (let px = 0; px < game.width; px++) {
-      map[py][px] = new Tile(true, px, py);
+      if (px > 5 && px < game.width - 5 && py > 5 && py < game.width - 5) {
+        map[py][px] = new Tile(false, px, py);
+      } else {
+        map[py][px] = new Tile(true, px, py);
+      }
     }
   }
 }

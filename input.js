@@ -68,3 +68,26 @@ function mousemovemethod(e) {
     mouse.oldx = mouse.x;
   }
 }
+
+var Input = {
+  keys: Array(),
+
+  update: function () {
+    if (this.keys["q"]) {
+      player.rotation -= 1;
+    }
+    if (this.keys["d"]) {
+      player.rotation += 1;
+    }
+  },
+};
+
+window.addEventListener("keydown", keyDownHandler, false);
+window.addEventListener("keyup", keyUpHandler, false);
+
+function keyDownHandler(e) {
+  Input.keys[e.key] = true;
+}
+function keyUpHandler(e) {
+  Input.keys[e.key] = false;
+}

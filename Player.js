@@ -8,13 +8,14 @@ class Player {
     this.y = y;
     this.size = 20;
     this.camSize = game.wallSize / 2;
-    this.rotation = 0;
+    this.rotation = 90;
     this.fov = 60;
     this.camAngle = 20;
     this.viewMax = 10;
-    this.rayon = game.width;
-    this.rayon = game.width;
-    this.distCam = Math.floor(game.width / 2 / Math.tan((pi * (this.fov / 2)) / 180));
+    this.rayon = game.canvasWidth;
+    this.distCam = Math.floor(
+      game.canvasWidth / 2 / Math.tan((pi * (this.fov / 2)) / 180)
+    );
   }
 
   drawInMap() {
@@ -27,35 +28,74 @@ class Player {
   }
 
   radar() {
-    for (let angle = this.rotation - this.fov / 2; angle < this.rotation + this.fov / 2; angle += 1) {
+    let quality = 0.5;
+    let rayXposition = 0;
+    for (
+      let angle = this.rotation - this.fov / 2;
+      angle < this.rotation + this.fov / 2;
+      angle += quality
+    ) {
       let found = false;
-      let dist = 1;
-      while (!found) {
-        let dx = this.x + Math.sin(toRad(angle)) * dist;
-        let dy = this.y + Math.cos(toRad(angle)) * dist;
-        if (dx > 0 && dx < game.canvasWidth && dy > 0 && dy < game.canvasWidth) {
-          if (!game.inGame) {
-            game.ctx.beginPath();
-            game.ctx.arc(dx, dy, 1, 0, 2 * Math.PI);
-            game.ctx.stroke();
-          }
 
-          if (map[Math.floor(dy / game.blockSize)][Math.floor(dx / game.blockSize)].solid) {
+      let dist = 1;
+      game.ctx.fillStyle = LightenDarkenColor("CCCCCC", 0);
+      let sinAng = Math.sin(toRad(angle));
+      let cosAng = Math.cos(toRad(angle));
+
+      while (!found) {
+        let dx = this.x + sinAng * dist;
+        let dy = this.y + cosAng * dist;
+
+        if (
+          dx > 0 &&
+          dx < game.canvasWidth &&
+          dy > 0 &&
+          dy < game.canvasWidth
+        ) {
+          if (
+            map[Math.floor(dy / game.blockSize)][
+              Math.floor(dx / game.blockSize)
+            ].solid
+          ) {
             found = true;
+            if (!game.inGame) {
+              game.ctx.beginPath();
+              game.ctx.moveTo(this.x, this.y);
+              game.ctx.lineTo(dx, dy);
+              game.ctx.stroke();
+            }
             if (game.inGame) {
-              update(dx, dy, dist);
+              let distance = dist; // * Math.cos(toRad(angle));
+              let height = (this.distCam * 64) / distance;
+
+              //height = (this.distCam * 64) / dist / Math.cos(toRad(angle));
+
+              game.ctx.fillStyle = LightenDarkenColor(
+                "CCCCCC",
+                -dist / (500 / 255)
+              );
+              game.ctx.fillRect(
+                (rayXposition * 500) / this.fov,
+                250 - height / 2,
+                Math.ceil((quality * 500) / this.fov),
+                height
+              );
             }
           }
         }
 
-        dist = dist + 10;
+        dist = dist + 1;
         if (dist > 500) found = true;
       }
+      rayXposition += quality;
     }
   }
   update(dx, dy, dist) {
-    taille = dist;
-
-    print(distanceX);
+    let height = (this.distCam * 64) / dist;
+    game.ctx.beginPath();
+    game.ctx.moveTo(dx, dy);
+    game.ctx.lineTo(300, 150);
+    game.ctx.stroke();
+    // 32 - height/2, 32 + height/2
   }
 }
