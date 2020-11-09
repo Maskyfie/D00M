@@ -73,24 +73,22 @@ var Input = {
   keys: Array(),
 
   update: function () {
+    let sinAng = Math.sin(toRad(player.rotation));
+    let cosAng = Math.cos(toRad(player.rotation));
     if (this.keys["q"]) {
-      player.rotation -= 2;
+      player.rotation -= player.speedRota;
     }
     if (this.keys["d"]) {
-      player.rotation += 2;
+      player.rotation += player.speedRota;
     }
-		if (this.keys["z"]) {
-      player.x += 2;
+    if (this.keys["z"]) {
+      player.x = player.x + sinAng * 1;
+      player.y = player.y + cosAng * 1;
     }
     if (this.keys["s"]) {
-      player.x -= 2;
+      player.x = player.x - sinAng * 1;
+      player.y = player.y - cosAng * 1;
     }
-			if (player.rotation > 359){
-				player.rotation = 0
-			}
-			if (player.rotation < 0){
-				player.rotation = 359
-		}
   },
 };
 

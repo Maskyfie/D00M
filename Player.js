@@ -7,14 +7,14 @@ class Player {
     this.x = x;
     this.y = y;
     this.size = 20;
-		this.vecteurX = 0;
-		this.vecteurY = 0;
     this.camSize = game.wallSize / 2;
     this.rotation = 90;
     this.fov = 60;
     this.camAngle = 20;
     this.viewMax = 10;
     this.rayon = game.canvasWidth;
+    this.speed = 2;
+    this.speedRota = 1.5;
     this.distCam = Math.floor(
       game.canvasWidth / 2 / Math.tan((pi * (this.fov / 2)) / 180)
     );
@@ -92,45 +92,5 @@ class Player {
       rayXposition += quality;
     }
   }
-  deplacement() {
-    if (this.rotation > 270 && < 90){
-			var vecteurYDirection = -1
-
-			if (this.rotation < 360) {
-				this.vecteurY = this.rotation/360
-			}  
-			else {
-				this.vecteurY = this.rotation / 90
-			}
-
-		} else {
-			var vecteurYDirection = 1 
-		
-		if (this.rotation < 180) {
-				this.vecteurY = this.rotation/180
-			}  
-			else {
-				this.vecteurY = this.rotation / 270
-			}
-		} 
-    if (this.rotation > 0 && < 180){
-			var vecteurXDirection = 1  
-			if (this.rotation < 90) {
-				this.vecteurX = this.rotation/90
-			}  
-			else {
-				this.vecteurX = this.rotation/180
-			}
-		}
-		else {
-			var vecteurXDirection = -1 
-					if (this.rotation < 270) {
-				this.vecteurY = this.rotation/270
-			}  
-			else {
-				this.vecteurY = this.rotation / 360
-			}
-		} 
-  }
 }
- // alo
+// alo
