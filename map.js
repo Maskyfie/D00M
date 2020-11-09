@@ -11,7 +11,7 @@ function initMap() {
       }
     }
   }
-}
+} // alo
 
 function drawMap() {
   for (let py = 0; py < game.height; py++) {

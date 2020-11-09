@@ -7,6 +7,8 @@ class Player {
     this.x = x;
     this.y = y;
     this.size = 20;
+		this.vecteurX = 0;
+		this.vecteurY = 0;
     this.camSize = game.wallSize / 2;
     this.rotation = 90;
     this.fov = 60;
@@ -90,12 +92,45 @@ class Player {
       rayXposition += quality;
     }
   }
-  update(dx, dy, dist) {
-    let height = (this.distCam * 64) / dist;
-    game.ctx.beginPath();
-    game.ctx.moveTo(dx, dy);
-    game.ctx.lineTo(300, 150);
-    game.ctx.stroke();
-    // 32 - height/2, 32 + height/2
+  deplacement() {
+    if (this.rotation > 270 && < 90){
+			var vecteurYDirection = -1
+
+			if (this.rotation < 360) {
+				this.vecteurY = this.rotation/360
+			}  
+			else {
+				this.vecteurY = this.rotation / 90
+			}
+
+		} else {
+			var vecteurYDirection = 1 
+		
+		if (this.rotation < 180) {
+				this.vecteurY = this.rotation/180
+			}  
+			else {
+				this.vecteurY = this.rotation / 270
+			}
+		} 
+    if (this.rotation > 0 && < 180){
+			var vecteurXDirection = 1  
+			if (this.rotation < 90) {
+				this.vecteurX = this.rotation/90
+			}  
+			else {
+				this.vecteurX = this.rotation/180
+			}
+		}
+		else {
+			var vecteurXDirection = -1 
+					if (this.rotation < 270) {
+				this.vecteurY = this.rotation/270
+			}  
+			else {
+				this.vecteurY = this.rotation / 360
+			}
+		} 
   }
 }
+ // alo

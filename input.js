@@ -16,7 +16,7 @@ var mouse = {
     y: 0,
   },
   button: 0,
-};
+}; // alo
 
 document.addEventListener("contextmenu", (event) => event.preventDefault());
 
@@ -74,11 +74,23 @@ var Input = {
 
   update: function () {
     if (this.keys["q"]) {
-      player.rotation -= 1;
+      player.rotation -= 2;
     }
     if (this.keys["d"]) {
-      player.rotation += 1;
+      player.rotation += 2;
     }
+		if (this.keys["z"]) {
+      player.x += 2;
+    }
+    if (this.keys["s"]) {
+      player.x -= 2;
+    }
+			if (player.rotation > 359){
+				player.rotation = 0
+			}
+			if (player.rotation < 0){
+				player.rotation = 359
+		}
   },
 };
 
