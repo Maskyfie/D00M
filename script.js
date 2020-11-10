@@ -1,12 +1,13 @@
 var game = {
-  width: 25,
-  height: 25,
-  blockSize: 500 / 25,
+  mapWidth: 25,
+  mapHeight: 25,
+  blockSize: this.canvasWidth / 25,
   inGame: true,
   wallSize: 64,
-  canvasWidth: 500,
-  canvasHeight: 500,
+  canvasWidth: 750,
+  canvasHeight: 750,
 }; // alo
+blockSize = game.canvasWidth/game.mapWidth
 
 function LightenDarkenColor(col, amt) {
   col = parseInt(col, 16);
@@ -24,7 +25,7 @@ $(document).ready(function () {
   game.element = document.getElementById("myCanvas");
   game.ctx = game.element.getContext("2d");
   initMap();
-  player = new Player(12, 12, 12 * game.blockSize, 12 * game.blockSize);
+  player = new Player(12, 12, 12 * blockSize, 12 * blockSize);
   update();
 });
 function toRad(angle) {
@@ -44,9 +45,9 @@ function update() {
 
   if (game.inGame) {
     game.ctx.clearRect(0, 0, game.canvasWidth, game.canvasHeight);
-    game.ctx.fillStyle = "blue";
+    game.ctx.fillStyle = "#03224c";
     game.ctx.fillRect(0, 0, game.canvasWidth, game.canvasHeight / 2);
-    game.ctx.fillStyle = "black";
+    game.ctx.fillStyle = "#383838";
     game.ctx.fillRect(
       0,
       game.canvasHeight / 2,
@@ -58,4 +59,4 @@ function update() {
   }
 
   requestAnimationFrame(update);
-}
+}	

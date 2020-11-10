@@ -7,12 +7,12 @@ class Tile {
   draw() {
     if (this.solid) {
       game.ctx.fillStyle = "grey";
-      game.ctx.fillRect(this.px * game.blockSize, this.py * game.blockSize, game.blockSize, game.blockSize);
+      game.ctx.fillRect(this.px * blockSize, this.py * blockSize, blockSize, blockSize);
     }
     if (!this.solid) {
       game.ctx.fillStyle = "white";
-      game.ctx.fillRect(this.px * game.blockSize, this.py * game.blockSize, game.blockSize, game.blockSize);
+      game.ctx.fillRect(this.px * blockSize, this.py * blockSize, blockSize, blockSize);
     }
   }
 }
- // alo
+ 

@@ -16,7 +16,7 @@ var mouse = {
     y: 0,
   },
   button: 0,
-}; // alo
+}; 
 
 document.addEventListener("contextmenu", (event) => event.preventDefault());
 
@@ -25,16 +25,16 @@ $("#myCanvas").mousedown(function (event) {
   mouse.button = event.which;
   mouse.x = event.pageX;
   mouse.y = event.pageY;
-  mouse.px = Math.floor(mouse.x / game.blockSize);
-  mouse.py = Math.floor(mouse.y / game.blockSize);
+  mouse.px = Math.floor(mouse.x / blockSize);
+  mouse.py = Math.floor(mouse.y / blockSize);
 });
 
 $("#myCanvas").mouseup(function (event) {
   mouse.active = false;
   mouse.x = event.pageX;
   mouse.y = event.pageY;
-  mouse.px = Math.floor(mouse.x / game.blockSize);
-  mouse.py = Math.floor(mouse.y / game.blockSize);
+  mouse.px = Math.floor(mouse.x / blockSize);
+  mouse.py = Math.floor(mouse.y / blockSize);
   mouse.button = event.which;
 });
 
@@ -45,14 +45,23 @@ $("#myCanvas").mousemove(function (event) {
   if (game.inGame) {
     mousemovemethod(event);
   }
-  mouse.px = Math.floor(mouse.x / game.blockSize);
-  mouse.py = Math.floor(mouse.y / game.blockSize);
+  mouse.px = Math.floor(mouse.x / blockSize);
+  mouse.py = Math.floor(mouse.y / blockSize);
   mouse.moving = false;
 });
 
 $("#switchInGame").click(function (event) {
   game.inGame = !game.inGame;
 });
+
+$("#saveMap").click(function (event) {
+  saveMap();
+});
+
+$("#loadMap").click(function (event) {
+  loadMap()
+});
+
 
 function mousemovemethod(e) {
   if (mouse.moving) {
@@ -75,20 +84,37 @@ var Input = {
   update: function () {
     let sinAng = Math.sin(toRad(player.rotation));
     let cosAng = Math.cos(toRad(player.rotation));
-    if (this.keys["q"]) {
+		let sinAngStraf = Math.sin(toRad(player.rotation - 90));
+    let cosAngStraf = Math.cos(toRad(player.rotation - 90));
+		saveX = player.x
+		saveY = player.y
+    if (this.keys["ArrowLeft"]) {
       player.rotation -= player.speedRota;
     }
-    if (this.keys["d"]) {
+    if (this.keys["ArrowRight"]) {
       player.rotation += player.speedRota;
     }
     if (this.keys["z"]) {
-      player.x = player.x + sinAng * 1;
-      player.y = player.y + cosAng * 1;
+      player.x = player.x + sinAng * player.speed;
+      player.y = player.y + cosAng * player.speed;
     }
     if (this.keys["s"]) {
-      player.x = player.x - sinAng * 1;
-      player.y = player.y - cosAng * 1;
+      player.x = player.x - sinAng * player.speed;
+      player.y = player.y - cosAng * player.speed;
     }
+		    if (this.keys["q"]) {
+      player.x = player.x + sinAngStraf * player.speed;
+      player.y = player.y + cosAngStraf * player.speed;
+    }
+    if (this.keys["d"]) {
+      player.x = player.x - sinAngStraf * player.speed;
+      player.y = player.y - cosAngStraf * player.speed;
+    }
+		let nextTileY = map[Math.floor(player.y/blockSize)][Math.floor(saveX/blockSize)]
+		let nextTileX = map[Math.floor(saveY/blockSize)][Math.floor(player.x/blockSize)]
+		if (nextTileX.solid) player.x = saveX
+		if (nextTileY.solid) player.y = saveY
+
   },
 };
 

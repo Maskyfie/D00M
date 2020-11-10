@@ -13,8 +13,8 @@ class Player {
     this.camAngle = 20;
     this.viewMax = 10;
     this.rayon = game.canvasWidth;
-    this.speed = 2;
-    this.speedRota = 1.5;
+    this.speed = 10;
+    this.speedRota = 10;
     this.distCam = Math.floor(
       game.canvasWidth / 2 / Math.tan((pi * (this.fov / 2)) / 180)
     );
@@ -55,8 +55,8 @@ class Player {
           dy < game.canvasWidth
         ) {
           if (
-            map[Math.floor(dy / game.blockSize)][
-              Math.floor(dx / game.blockSize)
+            map[Math.floor(dy / blockSize)][
+              Math.floor(dx / blockSize)
             ].solid
           ) {
             found = true;
@@ -74,12 +74,12 @@ class Player {
 
               game.ctx.fillStyle = LightenDarkenColor(
                 "CCCCCC",
-                -dist / (500 / 255)
+                -dist / (game.canvasWidth / 255) 
               );
               game.ctx.fillRect(
-                (rayXposition * 500) / this.fov,
-                250 - height / 2,
-                Math.ceil((quality * 500) / this.fov),
+                (rayXposition * game.canvasWidth) / this.fov,
+                game.canvasWidth/2 - height / 2,
+                Math.ceil((quality * game.canvasWidth) / this.fov),
                 height
               );
             }
@@ -87,10 +87,10 @@ class Player {
         }
 
         dist = dist + 1;
-        if (dist > 500) found = true;
+        if (dist > game.canvasWidth) found = true;
       }
       rayXposition += quality;
     }
   }
 }
-// alo
+// alo// alo// alo
