@@ -4,14 +4,19 @@ function initMap() {
   for (let py = 0; py < game.mapHeight; py++) {
     map[py] = [];
     for (let px = 0; px < game.mapWidth; px++) {
-      if (px > 5 && px < game.mapWidth - 5 && py > 5 && py < game.mapWidth - 5) {
+      if (
+        px > 5 &&
+        px < game.mapWidth - 5 &&
+        py > 5 &&
+        py < game.mapWidth - 5
+      ) {
         map[py][px] = new Tile(false, px, py);
       } else {
         map[py][px] = new Tile(true, px, py);
       }
     }
   }
-} 
+}
 
 function drawMap() {
   for (let py = 0; py < game.mapHeight; py++) {
@@ -42,16 +47,16 @@ function inputMap() {
   }
 }
 
-function saveMap(){
-    window.localStorage.setItem("map", JSON.stringify(map));
+function saveMap() {
+  window.localStorage.setItem("map", JSON.stringify(map));
 }
 
 function loadMap() {
   map = JSON.parse(window.localStorage.getItem("map"));
-	for (let py = 0; py < game.mapHeight; py++) {
+  for (let py = 0; py < game.mapHeight; py++) {
     for (let px = 0; px < game.mapWidth; px++) {
-        tile = map[py][px]
-				map[py][px] = new Tile(tile.solid, tile.px, tile.py);
+      tile = map[py][px];
+      map[py][px] = new Tile(tile.solid, tile.px, tile.py);
     }
   }
 }

@@ -7,7 +7,7 @@ var game = {
   canvasWidth: 750,
   canvasHeight: 750,
 }; // alo
-blockSize = game.canvasWidth/game.mapWidth
+blockSize = game.canvasWidth / game.mapWidth;
 
 function LightenDarkenColor(col, amt) {
   col = parseInt(col, 16);
@@ -20,13 +20,16 @@ function LightenDarkenColor(col, amt) {
     ).toString(16)
   );
 }
+function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
 
 $(document).ready(function () {
   game.element = document.getElementById("myCanvas");
   game.ctx = game.element.getContext("2d");
   initMap();
   player = new Player(12, 12, 12 * blockSize, 12 * blockSize);
-	enemy = new Enemies(11, 11, 11*blockSize, 11 * blockSize)
+  enemy = new Enemies(11, 11, 11 * blockSize, 11 * blockSize);
   update();
 });
 function toRad(angle) {
@@ -42,8 +45,7 @@ function update() {
     inputMap();
     player.drawInMap();
     player.radar();
-		enemy.radar()
-		
+    enemy.radar();
   }
 
   if (game.inGame) {
@@ -57,10 +59,10 @@ function update() {
       game.canvasWidth,
       game.canvasHeight
     );
-		enemy.radar()
-		enemy.update()
+    enemy.radar();
+    enemy.update();
     player.radar();
   }
 
   requestAnimationFrame(update);
-}	
+}

@@ -51,9 +51,7 @@ class Player {
           dy < game.canvasWidth
         ) {
           if (
-            map[Math.floor(dy / blockSize)][
-              Math.floor(dx / blockSize)
-            ].solid
+            map[Math.floor(dy / blockSize)][Math.floor(dx / blockSize)].solid
           ) {
             found = true;
             if (!game.inGame) {
@@ -70,25 +68,35 @@ class Player {
 
               game.ctx.fillStyle = LightenDarkenColor(
                 "CCCCCC",
-                -dist / (game.canvasWidth / 255) 
+                -dist / (game.canvasWidth / 255)
               );
               game.ctx.fillRect(
                 (rayXposition * game.canvasWidth) / this.fov,
-                game.canvasWidth/2 - height / 2,
+                game.canvasWidth / 2 - height / 2,
                 Math.ceil((quality * game.canvasWidth) / this.fov),
                 height
               );
             }
           }
-					if (map[Math.floor(dy / blockSize)][Math.floor(dx / blockSize)] == map[Math.floor(enemy.y / blockSize)][Math.floor(enemy.x / blockSize)]) {
-					if (game.inGame) {
-						              let distance = dist; // * Math.cos(toRad(angle));
+          if (
+            map[Math.floor(dy / blockSize)][Math.floor(dx / blockSize)] ==
+            map[Math.floor(enemy.y / blockSize)][
+              Math.floor(enemy.x / blockSize)
+            ]
+          ) {
+            if (game.inGame) {
+              let distance = dist; // * Math.cos(toRad(angle));
               let height = (this.distCam * 64) / distance;
-						game.ctx.fillStyle = "red";
-						game.ctx.fillRect((rayXposition * game.canvasWidth) / this.fov, game.canvasWidth/2 - height / 2, 20, 10)
-      	  }
-						}
-   						 }
+              game.ctx.fillStyle = "red";
+              game.ctx.fillRect(
+                (rayXposition * game.canvasWidth) / this.fov,
+                game.canvasWidth / 2 - height / 2,
+                20,
+                10
+              );
+            }
+          }
+        }
 
         dist = dist + 1;
         if (dist > game.canvasWidth) found = true;

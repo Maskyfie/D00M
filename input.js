@@ -16,7 +16,7 @@ var mouse = {
     y: 0,
   },
   button: 0,
-}; 
+};
 
 document.addEventListener("contextmenu", (event) => event.preventDefault());
 
@@ -59,9 +59,8 @@ $("#saveMap").click(function (event) {
 });
 
 $("#loadMap").click(function (event) {
-  loadMap()
+  loadMap();
 });
-
 
 function mousemovemethod(e) {
   if (mouse.moving) {
@@ -84,10 +83,10 @@ var Input = {
   update: function () {
     let sinAng = Math.sin(toRad(player.rotation));
     let cosAng = Math.cos(toRad(player.rotation));
-		let sinAngStraf = Math.sin(toRad(player.rotation - 90));
+    let sinAngStraf = Math.sin(toRad(player.rotation - 90));
     let cosAngStraf = Math.cos(toRad(player.rotation - 90));
-		saveX = player.x
-		saveY = player.y
+    saveX = player.x;
+    saveY = player.y;
     if (this.keys["ArrowLeft"]) {
       player.rotation -= player.speedRota;
     }
@@ -102,7 +101,7 @@ var Input = {
       player.x = player.x - sinAng * player.speed;
       player.y = player.y - cosAng * player.speed;
     }
-		    if (this.keys["q"]) {
+    if (this.keys["q"]) {
       player.x = player.x + sinAngStraf * player.speed;
       player.y = player.y + cosAngStraf * player.speed;
     }
@@ -110,11 +109,12 @@ var Input = {
       player.x = player.x - sinAngStraf * player.speed;
       player.y = player.y - cosAngStraf * player.speed;
     }
-		let nextTileY = map[Math.floor(player.y/blockSize)][Math.floor(saveX/blockSize)]
-		let nextTileX = map[Math.floor(saveY/blockSize)][Math.floor(player.x/blockSize)]
-		if (nextTileX.solid) player.x = saveX
-		if (nextTileY.solid) player.y = saveY
-
+    let nextTileY =
+      map[Math.floor(player.y / blockSize)][Math.floor(saveX / blockSize)];
+    let nextTileX =
+      map[Math.floor(saveY / blockSize)][Math.floor(player.x / blockSize)];
+    if (nextTileX.solid) player.x = saveX;
+    if (nextTileY.solid) player.y = saveY;
   },
 };
 
