@@ -26,6 +26,7 @@ $(document).ready(function () {
   game.ctx = game.element.getContext("2d");
   initMap();
   player = new Player(12, 12, 12 * blockSize, 12 * blockSize);
+	enemy = new Enemies(11, 11, 11*blockSize, 11 * blockSize)
   update();
 });
 function toRad(angle) {
@@ -41,6 +42,8 @@ function update() {
     inputMap();
     player.drawInMap();
     player.radar();
+		enemy.radar()
+		
   }
 
   if (game.inGame) {
@@ -54,7 +57,8 @@ function update() {
       game.canvasWidth,
       game.canvasHeight
     );
-
+		enemy.radar()
+		enemy.update()
     player.radar();
   }
 

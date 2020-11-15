@@ -13,8 +13,8 @@ class Player {
     this.camAngle = 20;
     this.viewMax = 10;
     this.rayon = game.canvasWidth;
-    this.speed = 10;
-    this.speedRota = 10;
+    this.speed = 1.5;
+    this.speedRota = 1.5;
     this.distCam = Math.floor(
       game.canvasWidth / 2 / Math.tan((pi * (this.fov / 2)) / 180)
     );
@@ -23,10 +23,6 @@ class Player {
   drawInMap() {
     game.ctx.fillStyle = "green";
     game.ctx.fillRect(this.x, this.y, this.size, this.size);
-  }
-  detectWalls() {
-    px = this.px;
-    py = this.py;
   }
 
   radar() {
@@ -84,7 +80,15 @@ class Player {
               );
             }
           }
-        }
+					if (map[Math.floor(dy / blockSize)][Math.floor(dx / blockSize)] == map[Math.floor(enemy.y / blockSize)][Math.floor(enemy.x / blockSize)]) {
+					if (game.inGame) {
+						              let distance = dist; // * Math.cos(toRad(angle));
+              let height = (this.distCam * 64) / distance;
+						game.ctx.fillStyle = "red";
+						game.ctx.fillRect((rayXposition * game.canvasWidth) / this.fov, game.canvasWidth/2 - height / 2, 20, 10)
+      	  }
+						}
+   						 }
 
         dist = dist + 1;
         if (dist > game.canvasWidth) found = true;
