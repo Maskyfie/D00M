@@ -21,7 +21,7 @@ function LightenDarkenColor(col, amt) {
   );
 }
 function getRandomInt(max) {
-  return Math.floor(Math.random() * Math.floor(max));
+  return Math.floor(Math.random() * Math.floor(max));////te
 }
 
 $(document).ready(function () {

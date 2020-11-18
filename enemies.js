@@ -5,7 +5,7 @@ class Enemies {
     this.x = x;
     this.y = y;
     this.size = 20;
-    this.rotation = 90;
+    this.rotation = 0;
     this.fov = 60;
     this.viewMax = 10;
     this.rayon = game.canvasWidth;
@@ -81,26 +81,31 @@ class Enemies {
     }
   }
   update() {
-    if (this.playerFound) {
+    if (this.playerFound) {			
+			/*this.px = Math.floor(this.x / blockSize)
+			this.py = Math.floor(this.y / blockSize)
+			player.px = Math.floor(player.x / blockSize)
+			if (this.px - player.px > 0) this.direction.x = -1
+			if (this.px - player.px < 0) this.direction.x = 1  
+			if (this.py - player.py > 0) this.direction.y = -1
+			if (this.py - player.py < 0) this.direction.y = 1*/  
       let sinAng = Math.sin(toRad(this.rotation));
       let cosAng = Math.cos(toRad(this.rotation));
-      this.x = this.x + sinAng * this.speed;
-      this.y = this.y + cosAng * this.speed;
+      this.x = this.x + this.speed * sinAng;
+      this.y = this.y + this.speed * cosAng;
       this.playerFound = false;
     } else {
       // on instale les variables
-      this.px = this.x / blockSize;
-      this.py = this.y / blockSize;
-
+			
       let sauvegardeX = Math.floor(this.x / blockSize);
       let sauvegardeY = Math.floor(this.y / blockSize);
-      let offset = 1 - this.speed;
+      let offset = 1 - (this.speed/blockSize);
 
       this.x = this.x + this.speed * this.direction.x;
       this.y = this.y + this.speed * this.direction.y;
 
-      this.px = Math.floor(this.x / blockSize);
-      this.py = Math.floor(this.y / blockSize);
+      this.px = (this.x / blockSize);
+      this.py = (this.y / blockSize);
 
       var tileSiMovementX;
       var tileSiMovementY;
@@ -111,6 +116,7 @@ class Enemies {
         this.goingRight = true;
         this.goingDown = false;
         this.goingTop = false;
+				this.rotation = 90
         offset = offset * 0;
       }
       if (this.direction.x == -1) {
@@ -118,6 +124,7 @@ class Enemies {
         this.goingRight = false;
         this.goingDown = false;
         this.goingTop = false;
+				this.rotation = 270
         offset = offset * 1;
       }
 
@@ -126,6 +133,7 @@ class Enemies {
         this.goingRight = false;
         this.goingDown = false;
         this.goingTop = true;
+				this.rotation = 180
         offset = offset * 1;
       }
       if (this.direction.y == 1) {
@@ -133,24 +141,21 @@ class Enemies {
         this.goingRight = false;
         this.goingDown = true;
         this.goingTop = false;
+				this.rotation = 0
         offset = offset * 0;
       }
-      if (this.goingUp) this.rotation = 0;
-      if (this.goingRight) this.rotation = 90;
-      if (this.goingDown) this.rotation = 180;
-      if (this.goingLeft) this.rotation = 270;
 
       // Découverte de la prochaine tile (si solide)
       if (this.direction.x > 0)
         tileSiMovementX =
-          map[Math.floor(sauvegardeY)][Math.floor(this.px + offset)];
+          map[Math.floor(sauvegardeY)][Math.floor(this.px)] //+ offset)];
       else
         tileSiMovementX =
-          map[Math.floor(sauvegardeY)][Math.floor(this.px / blockSize)];
+          map[Math.floor(sauvegardeY)][Math.floor(this.px)];
 
       if (this.direction.y > 0)
         tileSiMovementY =
-          map[Math.floor(this.py + offset)][Math.floor(sauvegardeX)];
+          map[Math.floor(this.py /*+ offset*/)][Math.floor(sauvegardeX)];
       else tileSiMovementY = map[Math.floor(this.py)][Math.floor(sauvegardeX)];
 
       //si on est à la recherche d'une nouvelle tile alors prendre ses coordonées
@@ -178,6 +183,7 @@ class Enemies {
         };
       }
       if (tileSiMovementX.solid) {
+
         this.px = sauvegardeX;
         this.direction = this.getDirection();
         this.nextTile = {

@@ -20,7 +20,7 @@ function initMap() {
 
 function drawMap() {
   for (let py = 0; py < game.mapHeight; py++) {
-    for (let px = 0; px < game.mapWidth; px++) {
+    for (let px = 0; px  < game.mapWidth; px++) {
       map[py][px].draw();
     }
   }
